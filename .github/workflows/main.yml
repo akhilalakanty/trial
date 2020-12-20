@@ -43,10 +43,13 @@ jobs:
           filename: 'release.zip'
           exclusions: '*.git* /*node_modules/* .editorconfig' 
       - name: Upload file to bucket
-        uses: koraykoska/s3-upload-github-action@master
+        uses: zdurham/s3-upload-github-action@master
+        with:
+          args: --acl public-read
         env:
-          FILE: ./release.zip
-          S3_ENDPOINT: 'https://testforactions.s3-website.ap-south-1.amazonaws.com'
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
-          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+         FILE: ./release.zip
+         AWS_REGION: 'ap-south-1'
+         S3_BUCKET: ${{ secrets.S3_BUCKET }}
+         S3_KEY: 'release_test'
+         AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
